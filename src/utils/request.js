@@ -33,6 +33,8 @@ const err = (error) => {
 
 // request 拦截器
 service.interceptors.request.use(config => {
+  config.headers[ 'X-Access-Token' ] = "testtoken"
+
   return config
 },(error) => {
   return Promise.reject(error)
