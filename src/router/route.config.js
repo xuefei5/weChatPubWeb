@@ -9,6 +9,10 @@ import personalCourseDetail from '@/components/member/personalCourses/personalCo
 import mine from '@/components/member/mine/mine'
 import test from '@/components/member/test/index'
 
+//正式菜单开始
+import imitatewechat from '@/components/imitatewechat/index'
+import hypermarket from '@/components/hypermarket/index'
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -16,8 +20,10 @@ const router = new VueRouter({
     base: __dirname,
     //路由映射map
     routes: [
-        { path: '/', redirect: '/memberHome/activityIndex' },
-        { path: '*', redirect: '/memberHome/activityIndex' },
+        //{ path: '/', redirect: '/memberHome/activityIndex' },
+        //{ path: '*', redirect: '/memberHome/activityIndex' },
+          { path: '/', redirect: '/imitatewechat/index' },
+          { path: '*', redirect: '/imitatewechat/index' },
 	    {
 	      path: '/memberHome',
 	      name: 'memberHome',
@@ -26,7 +32,10 @@ const router = new VueRouter({
 	      	   {
 			      path: '/memberHome/activityIndex',
 			      name: 'activityIndex',
-			      component: activityIndex
+			      component: activityIndex,
+            meta:{
+              index:2
+            },
 			    },
 			     {
 			      path: '/memberHome/activityDetail/:activityId',
@@ -61,6 +70,27 @@ const router = new VueRouter({
 
 	      ]
 	    },
+      //正式菜单开始
+      {
+        path: '/imitatewechat/index',
+        name: 'imitatewechat',
+        component: imitatewechat,
+        meta:{
+          index:1
+        },
+        children:[
+          ]
+      },
+      {
+        path: '/hypermarket/index',
+        name: 'hypermarket',
+        component: hypermarket,
+        meta:{
+          index:2
+        },
+        children:[
+        ]
+      }
 
     ]
 });
