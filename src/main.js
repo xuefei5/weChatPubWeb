@@ -10,6 +10,9 @@ import Base from './assets/js/baseFun.js'         //---------自定义的公共�
 import stores from './store/store'                //---------自定义的全局变量
 import './assets/css/base.css'                    //---------引入的全局公共css
 
+import  { ToastPlugin } from 'vux'
+Vue.use(ToastPlugin)
+
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 

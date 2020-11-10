@@ -12,6 +12,8 @@ import test from '@/components/member/test/index'
 //正式菜单开始
 import imitatewechat from '@/components/imitatewechat/index'
 import hypermarket from '@/components/hypermarket/index'
+import weChatIndex from '@/components/wechat/main/index'
+import villageList from "../components/wechat/village/villageList";
 
 Vue.use(VueRouter)
 
@@ -89,6 +91,24 @@ const router = new VueRouter({
           index:2
         },
         children:[
+        ]
+      },
+      {
+        path: '/weChatMain/index',
+        name: 'weChatMain',
+        component: weChatIndex,
+        meta:{
+          index:2
+        },
+        children:[
+          {
+            path: '/weChat/villageList',
+            name: 'villageList',
+            component: villageList,
+            meta:{
+              index:3
+            }
+          }
         ]
       }
 

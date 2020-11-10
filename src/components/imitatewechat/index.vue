@@ -6,6 +6,7 @@
       <group title="请选择对应页面">
         <cell title="商城" :link="{path:'/hypermarket/index'}" is-link></cell>
         <cell title="代码原生页面" :link="{path:'/memberHome/activityIndex'}" is-link></cell>
+        <cell title="准康农惠公众号主页" :link="{path:'/weChatMain/index'}" is-link></cell>
       </group>
     </div>
 </template>
