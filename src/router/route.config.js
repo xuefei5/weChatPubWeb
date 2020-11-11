@@ -13,6 +13,7 @@ import test from '@/components/member/test/index'
 import imitatewechat from '@/components/imitatewechat/index'
 import hypermarket from '@/components/hypermarket/index'
 import weChatIndex from '@/components/wechat/main/index'
+import mainRoute from "../components/wechat/main/mainRoute";
 import villageList from "../components/wechat/village/villageList";
 
 Vue.use(VueRouter)
@@ -94,23 +95,31 @@ const router = new VueRouter({
         ]
       },
       {
-        path: '/weChatMain/index',
+        path: '/weChatMain',
         name: 'weChatMain',
         component: weChatIndex,
         meta:{
           index:2
+        }
+      },
+      {
+        path: '/mainRoute',
+        name: 'mainRoute',
+        component: mainRoute,
+        meta:{
+          index:3
         },
         children:[
           {
-            path: '/weChat/villageList',
+            path: 'villageList',
             name: 'villageList',
             component: villageList,
             meta:{
-              index:3
+              index:4
             }
           }
         ]
-      }
+      },
 
     ]
 });

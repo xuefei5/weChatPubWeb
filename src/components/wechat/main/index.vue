@@ -1,31 +1,34 @@
 <template>
     <div class="weChat-main" v-bind:style="{background:'url('+backGroundUrl+')'}">
 
-      <grid :show-lr-borders="false" :show-vertical-dividers="false">
-        <grid-item :label="mainCon.modal_name" v-for="mainCon in mainConfigList" :key="mainCon.index">
-          <img slot="icon" :src="mainCon.modal_icon">
-          <span @click="this.openRouteOrOther(mainCon.index)">
-            </span>
-        </grid-item>
-      </grid>
+      <br/><br/><br/><br/>
+      <flexbox :gutter="0" wrap="wrap">
+        <flexbox-item :span="1/3" v-for="mainCon in mainConfigList" :key="mainCon.index">
+          <div class="flex-demo" @click="openRouteOrOther(mainCon)">
+            <img :src="mainCon.modal_icon"/>
+          <br/>
+            {{mainCon.modal_name}}
+          </div>
+        </flexbox-item>
+      </flexbox>
 
     </div>
 </template>
 
 <script>
-import { Grid, GridItem } from 'vux'
+import { Flexbox, FlexboxItem } from 'vux'
 import { getAction } from '@/api/manage';
 export default {
   components: {
-    Grid,
-    GridItem
+    Flexbox,
+    FlexboxItem
   },
   name: "index",
   data() {
     return {
       backGroundUrl: '',
       mainConfigList:[
-        {"modal_name":"村集体","modal_icon":"http://39.104.93.182:8080/images/grid_icon.png","modal_url":"/weChat/villageList","modal_type":"1"},
+        {"modal_name":"村集体","modal_icon":"http://39.104.93.182:8080/images/grid_icon.png","modal_url":"/mainRoute/villageList","modal_type":"1"},
         {"modal_name":"准康商城","modal_icon":"http://39.104.93.182:8080/images/grid_icon.png","modal_url":"http://zknhshop.jobzhiliren.com/wap/index.html","modal_type":"2"},
         {"modal_name":"准格尔720云","modal_icon":"http://39.104.93.182:8080/images/grid_icon.png","modal_url":"http://zknhshop.jobzhiliren.com/wap/index.html","modal_type":"2"}
       ]
@@ -50,11 +53,23 @@ export default {
         }
       })
     },
-    openRouteOrOther(index){
+    openRouteOrOther(mainCon){
 
-      this.$vux.toast.show({
-        text: '点击了'
-      })
+      let modalType = mainCon.modal_type;//1-内部链接，2-外部链接
+      switch (modalType) {
+        case "1":
+          this.$router.push(mainCon.modal_url);
+          break;
+        case "2":
+          window.open(mainCon.modal_url,"_self");
+          break
+        default:
+          this.$vux.toast.show({
+            text: '非法选项',
+            type:'warn'
+          })
+          break;
+      }
     }
   }
 }
@@ -67,5 +82,11 @@ export default {
     width: 100%;
     background-repeat: no-repeat !important;
     background-size: 100% 100% !important;
+  }
+  .flex-demo {
+    text-align: center;
+    color: #fff;
+    border-radius: 4px;
+    background-clip: padding-box;
   }
 </style>
