@@ -1,84 +1,98 @@
 <template>
-  <div>
-    <div style="margin: 10px;overflow: hidden;" v-for="item in villageList">
-      <masker style="border-radius: 2px;">
+  <div style="background: #000000;margin-top: -1rem;">
+    <br/>
+    <div style="margin: 15px;overflow: hidden;" v-for="item in villageList">
+      <masker style="border-radius: 10px;" :opacity="0.6">
         <div class="m-img" :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
         <div slot="content" class="m-title">
-          {{item.title}}
-          <br/>
-          <span class="m-time">2016-03-18</span>
+          <h2>{{item.title}}</h2>
+          <p style="margin-top: 20px">{{item.content}}</p>
+          <x-button mini plain class="m-button" v-on:click.native="openVillageDetail(item.id)"><span style="color: white">查看详情</span></x-button>
         </div>
       </masker>
     </div>
-    <div style="margin: 10px;overflow: hidden;">
-      <masker style="border-radius: 2px;" color="F9C90C" :opacity="0.8">
-        <div class="m-img" style="background-image:url(http://39.104.93.182:8080/images/main_back.png)"></div>
-        <div slot="content" class="m-title">
-          VUX
-          <br/>
-          <span class="m-time">2016-03-18</span>
-        </div>
-      </masker>
-    </div>
+    <divider>已经到底啦</divider>
+    <br/>
   </div>
 </template>
 
 <script>
-import { Masker } from 'vux'
+import { Masker,XButton,Divider  } from 'vux'
 export default {
   components: {
-    Masker
+    Masker,
+    XButton,
+    Divider
   },
   name: "villageList",
   data () {
     return {
       villageList: [{
-        title: '洗颜新潮流！人气洁面皂排行榜',
-        img: 'http://39.104.93.182:8080/images/main_back.png'
+        id:"1",
+        title: '敖靠塔村',
+        content:'敖靠塔村位于准格尔旗经济开发区的北进出口处。',
+        img: 'http://39.104.93.182/images/village_model_1.png'
       }, {
-        title: '美容用品 & 日用品（上）',
-        img: 'http://39.104.93.182:8080/images/main_back.png'
+        id:"2",
+        title: '不拉村',
+        content:'位于沙圪堵镇政府所在地，东与安定壕村接壤，南与福路村毗邻，西与忽昌梁村连接，北与敖靠塔村相邻，交通便利。',
+        img: 'http://39.104.93.182/images/village_model_2.png'
       }, {
-        title: '远离车内毒气，日本车载空气净化器精选',
-        img: 'http://39.104.93.182:8080/images/main_back.png'
+        id:"3",
+        title: '布尔洞沟村',
+        content:'位于沙圪堵镇西南部，东邻石窑沟村，南至四道包村，北与神山村、西营子村、忽昌梁村连接，西与张圪堵村接壤。',
+        img: 'http://39.104.93.182/images/village_model_3.png'
       }]
     }
-  }
+  },
+  methods:{
+    openVillageDetail(id){
+      console.log("点击详情"+id);
+      this.$router.push({path: '/mainRoute/villageDetail', query: {villageId: id}});
+    }
+  },
+
+  /*beforeCreate () {
+    document.querySelector('body').setAttribute('style', 'background-color:#333333')
+  },
+
+  beforeDestroy () {
+    document.querySelector('body').removeAttribute('style')
+  }*/
 }
 </script>
 
 <style scoped>
   .m-img {
-    padding-bottom: 33%;
+    padding-bottom: 50%;
     display: block;
     position: relative;
     max-width: 100%;
-    background-size: cover;
+    height: 5rem;
     background-position: center center;
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: 10px;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
   }
 
   .m-title {
     color: #fff;
     text-align: center;
-    text-shadow: 0 0 2px rgba(0, 0, 0, .5);
     font-weight: 500;
     font-size: 16px;
     position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    text-align: center;
-    top: 50%;
+    height: 5rem;
+    top: 20%;
     transform: translateY(-50%);
+    padding: 5px 50px 5px 50px;
   }
 
-  .m-time {
-    font-size: 12px;
-    padding-top: 4px;
-    border-top: 1px solid #f0f0f0;
-    display: inline-block;
-    margin-top: 5px;
+  .m-button {
+    margin-top: 1.5rem;
+    font-size: 0.65rem;
+    font-weight: bold;
+    letter-spacing: 0.025rem;
+    color: white;
   }
 </style>

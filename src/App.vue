@@ -20,12 +20,17 @@ export default {
       //如果to索引大于from索引,判断为前进状态,反之则为后退状态
       if (to.meta.index > from.meta.index) {
         //设置动画名称
-        this.transitionName = 'slide-left';
+        this.transitionName = 'vux-header-fade-in-right';
       } else {
-        this.transitionName = 'slide-right';
+        this.transitionName = 'vux-header-fade-in-left';
       }
     }
 
+  },
+  computed: {
+    keepAlive () {
+      return this.$route.meta.keepAlive
+    }
   }
 }
 </script>

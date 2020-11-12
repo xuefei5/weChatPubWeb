@@ -13,8 +13,9 @@ import test from '@/components/member/test/index'
 import imitatewechat from '@/components/imitatewechat/index'
 import hypermarket from '@/components/hypermarket/index'
 import weChatIndex from '@/components/wechat/main/index'
-import mainRoute from "../components/wechat/main/mainRoute";
+import mainRoute from "../components/layout/mainRoute";
 import villageList from "../components/wechat/village/villageList";
+import villageDetail from "../components/wechat/village/villageDetail";
 
 Vue.use(VueRouter)
 
@@ -95,28 +96,27 @@ const router = new VueRouter({
         ]
       },
       {
-        path: '/weChatMain',
-        name: 'weChatMain',
-        component: weChatIndex,
-        meta:{
-          index:2
-        }
-      },
-      {
         path: '/mainRoute',
         name: 'mainRoute',
         component: mainRoute,
-        meta:{
-          index:3
-        },
         children:[
           {
             path: 'villageList',
             name: 'villageList',
             component: villageList,
-            meta:{
-              index:4
-            }
+            meta:{index:3, keepAlive:true}
+          },
+          {
+            path: 'villageDetail',
+            name: 'villageDetail',
+            component: villageDetail,
+            meta:{index:4, keepAlive:false}
+          },
+          {
+            path: 'weChatMain',
+            name: 'weChatMain',
+            component: weChatIndex,
+            meta:{index:2, keepAlive:true}
           }
         ]
       },
