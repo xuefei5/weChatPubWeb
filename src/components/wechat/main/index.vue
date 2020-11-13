@@ -1,9 +1,10 @@
 <template>
   <div class="weChat-main" v-bind:style="{background:'url('+backGroundUrl+')'}">
     <div class="drag">
-      <br/><br/>
+      <img :src="leftImgUrl" class="main_lefttop"/>
+      <br/>
       <div class="title">
-        准康云线上平台<icon type="ios-cart-outline"></icon>
+        准康云线上平台<img src="../../../assets/images/zknh/zknh_logo.png" class="logo"/>
       </div>
       <br/><br/>
       <flexbox :gutter="0" wrap="wrap">
@@ -25,33 +26,40 @@
 </template>
 
 <script>
-import { Flexbox, FlexboxItem,Icon  } from 'vux'
+import { Flexbox, FlexboxItem,Icon,Spinner   } from 'vux'
 import { getAction } from '@/api/manage';
 import { IMAGE_URL } from "@/store/mutation-types"
 export default {
   components: {
     Flexbox,
     FlexboxItem,
-    Icon
+    Icon,
+    Spinner
   },
   name: "index",
   data() {
     return {
+      model_an:false,
+      transitionName:'vux-header-fade-in-left',
       imageUrl:IMAGE_URL,
       backGroundUrl: '',
+      leftImgUrl:'',
       mainConfigList:[
       ]
     }
   },
   mounted() {
+    this.$vux.loading.show({
+      text: '努力加载中...'
+    });
     this.getMainBackGround();
+    this.getMainLeftTop();
     this.getMainModel();
   },
   methods: {
     getMainBackGround() {
       getAction("phone/api_zknh_wechat_config/getWeChatMainBack").then(res => {
         let code = res.code;
-        console.log("服务端返回的背景图链接为" + res.result)
         if ("200" == code) {
           this.backGroundUrl = IMAGE_URL+res.result;
         } else {
@@ -63,12 +71,23 @@ export default {
         }
       })
     },
+    getMainLeftTop() {
+      getAction("phone/api_zknh_wechat_config/getWeChatMainLeftImg").then(res => {
+        let code = res.code;
+        if ("200" == code) {
+          this.leftImgUrl = IMAGE_URL+res.result;
+        } else {
+          this.leftImgUrl = '';
+        }
+      })
+    },
     getMainModel(){
       getAction("phone/api_zknh_wechat_config/getWeChatMainModel").then(res => {
         let code = res.code;
-        console.log("服务端返回的模块为" + res.result)
+        this.$vux.loading.hide();
         if ("200" == code) {
           this.mainConfigList = res.result;
+          this.model_an = true;
         } else {
           this.$vux.toast.show({
             text: '模块加载失败',
@@ -79,6 +98,10 @@ export default {
       })
     },
     openRouteOrOther(mainCon){
+      //如果没有配置url,说明该模块没有实现
+      if(!mainCon.modalUrl){
+        this.$vux.toast.text('么着急，敬请期待^_^','top');
+      }
 
       let modalType = mainCon.modalType;//1-内部链接，2-外部链接
       switch (modalType) {
@@ -142,8 +165,23 @@ export default {
   }
 
   .model_icon{
+     width: 54px;
+     height: 54px;
+     border-radius: 10px
+   }
+
+  .logo{
+    width: 20px;
+    height: 20px;
+    margin-bottom: .5rem;
+  }
+
+  .main_lefttop{
     width: 54px;
     height: 54px;
-    border-radius: 10px
+    border-radius: 10px;
+    margin-top: .5rem;
+    margin-left: .5rem;
   }
+
 </style>
