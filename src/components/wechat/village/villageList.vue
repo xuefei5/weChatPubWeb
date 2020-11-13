@@ -7,7 +7,7 @@
         <div slot="content" class="m-title">
           <h2>{{item.villageName}}</h2>
           <p style="margin-top: 20px">{{item.villageContent}}</p>
-          <x-button mini plain class="m-button" v-on:click.native="openVillageDetail(item.id)"><span style="color: white">查看详情</span></x-button>
+          <x-button mini plain class="m-button" v-on:click.native="openVillageDetail(item)"><span style="color: white">查看详情</span></x-button>
         </div>
       </masker>
     </div>
@@ -55,9 +55,9 @@ export default {
         }
       })
     },
-    openVillageDetail(id){
-      console.log("点击详情"+id);
-      this.$router.push({path: '/mainRoute/villageDetail', query: {villageId: id}});
+    openVillageDetail(item){
+      console.log("点击详情"+item);
+      this.$router.push({path: '/mainRoute/villageDetail', query: item});
     }
   }
 
