@@ -2,7 +2,7 @@
   <div style="background: #000000;margin-top: -1rem;">
     <br/>
     <div style="margin: 15px;overflow: hidden;" v-for="item in villageList">
-      <masker style="border-radius: 10px;" :opacity="0.6">
+      <masker class="masker" style="border-radius: 10px;" :opacity="0.6">
         <div class="m-img" :style="{backgroundImage: 'url(' + imageUrl+item.villageBack + ')'}"></div>
         <div slot="content" class="m-title">
           <h2>{{item.villageName}}</h2>
@@ -104,5 +104,24 @@ export default {
     font-weight: bold;
     letter-spacing: 0.025rem;
     color: white;
+  }
+  .m-button.hover {
+    background-color: red;
+  }
+
+  @keyframes translateY{
+    0%{transform: translateY(50px);opacity: 0;}
+    100%{ transform: translateY(0px);opacity: 1;}
+  }
+
+  @-webkit-keyframes translateY {/*针对webkit内核*/
+    0%{transform: translateY(50px);opacity: 0;}
+    100%{ transform: translateY(0px);opacity: 1;}
+  }
+
+  .masker{
+    animation: translateY;/*动画名称*/
+    animation-duration: 3s;/*动画持续时间*/
+    -webkit-animation:translateY 1.5s;/*针对webkit内核*/
   }
 </style>

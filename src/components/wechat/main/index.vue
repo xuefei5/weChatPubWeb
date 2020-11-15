@@ -150,6 +150,12 @@ export default {
     border-radius: 4px;
     background-clip: padding-box;
     margin-top: 1rem;
+    animation: fade-in;/*动画名称*/
+    animation-duration: 3s;/*动画持续时间*/
+    -webkit-animation:fade-in 1.5s;/*针对webkit内核*/
+  }
+  .flex-demo.hover {
+    background-color: #999999;
   }
   .title{
     font-size: 2rem;
@@ -157,6 +163,9 @@ export default {
     text-align: center;
     font-family:Cursive;
     font-weight:bold;
+    animation: fade-in;/*动画名称*/
+    animation-duration: 3s;/*动画持续时间*/
+    -webkit-animation:fade-in 1.5s;/*针对webkit内核*/
   }
 
   .drag{
@@ -182,6 +191,15 @@ export default {
     border-radius: 10px;
     margin-top: .5rem;
     margin-left: .5rem;
+  }
+
+  @keyframes fade-in {
+    0%{transform: scale(0.2);opacity: 0;}
+    100%{ transform: scale(1);opacity: 1;}
+  }
+  @-webkit-keyframes fade-in {/*针对webkit内核*/
+    0%{transform: scale(0.2);opacity: 0;}
+    100%{ transform: scale(1);opacity: 1;}
   }
 
 </style>

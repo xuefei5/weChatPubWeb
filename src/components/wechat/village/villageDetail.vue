@@ -2,7 +2,7 @@
     <div class="main-div">
       <img :src="imageUrl+villageInfo.villageMainImg" class="village-main-img"/>
       <br/>
-      <span class="title">{{villageInfo.villageName}}</span>
+      <div class="title_me">{{villageInfo.villageName}}</div>
       <!--<load-more :show-loading="false"></load-more>-->
       <flexbox orient="vertical">
         <flexbox-item v-for="item in detailList" :key="item.index">
@@ -84,20 +84,29 @@ export default {
     height: 14rem;
     width: 22rem;
     margin: 10px 10px 10px 10px;
+    animation: translateY;/*动画名称*/
+    animation-duration: 3s;/*动画持续时间*/
+    -webkit-animation:translateY 1.5s;/*针对webkit内核*/
   }
   .detail-div{
     text-align: center;
     border-radius: 20px;
     background-color: white;
-    margin: 10px 10px 10px 10px
+    margin: 10px 10px 10px 10px;
+    animation: translateY;/*动画名称*/
+    animation-duration: 3s;/*动画持续时间*/
+    -webkit-animation:translateY 1.5s;/*针对webkit内核*/
   }
 
-  .title{
+  .title_me{
     font-size: 2rem;
     color: black;
     text-align: center;
     font-family:Cursive;
     font-weight:bold;
+    animation: translateY;/*动画名称*/
+    animation-duration: 3s;/*动画持续时间*/
+    -webkit-animation:translateY 1.5s;/*针对webkit内核*/
   }
   .detail-text{
     text-align: left;
@@ -108,6 +117,16 @@ export default {
     height: 13rem;
     width: 21rem;
     margin: 10px 10px 10px 10px;
+  }
+
+  @keyframes translateY{
+    0%{transform: translateY(50px);opacity: 0;}
+    100%{ transform: translateY(0px);opacity: 1;}
+  }
+
+  @-webkit-keyframes translateY {/*针对webkit内核*/
+    0%{transform: translateY(50px);opacity: 0;}
+    100%{ transform: translateY(0px);opacity: 1;}
   }
 
 </style>
