@@ -14,6 +14,9 @@ import  { ToastPlugin,LoadingPlugin } from 'vux'
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
 
+//渐进式加载图片
+
+
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 

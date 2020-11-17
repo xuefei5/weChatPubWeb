@@ -3,7 +3,8 @@
     <br/>
     <div style="margin: 15px;overflow: hidden;" v-for="item in villageList">
       <masker class="masker" style="border-radius: 10px;" :opacity="0.6">
-        <div class="m-img" :style="{backgroundImage: 'url(' + imageUrl+item.villageBack + ')'}"></div>
+        <!--:style="{backgroundImage: 'url(' + imageUrl+item.villageBack + ')'}"-->
+          <x-img class="m-img" :default-src="imageThuUrl+item.villageBack" :src="imageUrl+item.villageBack" :offset="0"/>
         <div slot="content" class="m-title">
           <h2>{{item.villageName}}</h2>
           <p style="margin-top: 20px">{{item.villageContent}}</p>
@@ -17,19 +18,21 @@
 </template>
 
 <script>
-import { Masker,XButton,Divider  } from 'vux'
+import { Masker,XButton,Divider,XImg  } from 'vux'
 import { getAction } from '@/api/manage';
-import { IMAGE_URL } from "@/store/mutation-types"
+import { IMAGE_URL,IMAGE_THU_URL } from "@/store/mutation-types"
 export default {
   components: {
     Masker,
     XButton,
-    Divider
+    Divider,
+    XImg
   },
   name: "villageList",
   data () {
     return {
       imageUrl:IMAGE_URL,
+      imageThuUrl:IMAGE_THU_URL,
       villageList: []
     }
   },
@@ -74,16 +77,14 @@ export default {
 
 <style scoped>
   .m-img {
-    padding-bottom: 50%;
     display: block;
     position: relative;
     max-width: 100%;
-    height: 5rem;
+    width: 100%;
+    height: 15rem;
     background-position: center center;
     cursor: pointer;
     border-radius: 10px;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
   }
 
   .m-title {

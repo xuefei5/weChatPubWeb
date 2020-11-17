@@ -1,6 +1,6 @@
 <template>
     <div class="main-div">
-      <img :src="imageUrl+villageInfo.villageMainImg" class="village-main-img"/>
+      <x-img :default-src="imageThuUrl+villageInfo.villageMainImg" :src="imageUrl+villageInfo.villageMainImg" :offset="-10000000" class="village-main-img"/>
       <br/>
       <div class="title_me">{{villageInfo.villageName}}</div>
       <!--<load-more :show-loading="false"></load-more>-->
@@ -10,7 +10,7 @@
           <div class="detail-div">
             <h2 style="text-align: center">{{item.modelName}}</h2>
             <br/>
-            <img :src="imageUrl+item.modelImg" class="detail_img"/>
+            <x-img :default-src="imageThuUrl+item.modelImg" :src="imageUrl+item.modelImg" :offset="0" class="detail_img"/>
             <br/>
             <div class="detail-text">&nbsp;&nbsp;&nbsp;&nbsp; {{item.modelContent}}</div>
           </div>
@@ -22,20 +22,22 @@
 </template>
 
 <script>
-import { Divider,Flexbox, FlexboxItem,LoadMore } from 'vux'
+import { Divider,Flexbox, FlexboxItem,LoadMore,XImg  } from 'vux'
 import { getAction } from '@/api/manage';
-import { IMAGE_URL } from "@/store/mutation-types"
+import { IMAGE_URL,IMAGE_THU_URL } from "@/store/mutation-types"
 export default {
   components: {
     Divider,
     Flexbox,
     FlexboxItem,
-    LoadMore
+    LoadMore,
+    XImg
   },
   name: "villageDetail",
   data() {
     return {
       imageUrl:IMAGE_URL,
+      imageThuUrl:IMAGE_THU_URL,
       villageInfo: this.$route.query,
       detailList:[]
     }
