@@ -1,6 +1,6 @@
 <template>
     <div class="main-div">
-      <x-img :default-src="imageThuUrl+villageInfo.villageMainImg" :src="imageUrl+villageInfo.villageMainImg" :offset="-10000000" class="village-main-img"/>
+      <x-img :default-src="imageThuUrl+villageInfo.villageMainImg" :src="imageUrl+villageInfo.villageMainImg" :offset="-10" class="village-main-img"/>
       <br/>
       <div class="title_me">{{villageInfo.villageName}}</div>
       <!--<load-more :show-loading="false"></load-more>-->
