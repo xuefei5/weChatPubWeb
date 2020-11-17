@@ -1,7 +1,7 @@
 <template>
   <div class="weChat-main" v-bind:style="{background:'url('+backGroundUrl+')'}">
     <div class="drag">
-      <img :src="leftImgUrl" class="main_lefttop"/>
+      <x-img class="main_lefttop" :default-src="imageThuUrl+leftImgUrl" :src="imageUrl+leftImgUrl" :offset="0"/>
       <br/>
       <div class="title">
         准康云线上平台<img src="../../../assets/images/zknh/zknh_logo.png" class="logo"/>
@@ -14,7 +14,7 @@
               <icon :type="mainCon.modalIcon" is-msg></icon>
             </span>
             <span v-if="mainCon.iconType == '1'">
-              <img class="model_icon" :src="imageUrl+mainCon.modalIcon"/>
+              <x-img class="model_icon" :default-src="imageThuUrl+mainCon.modalIcon" :src="imageUrl+mainCon.modalIcon" :offset="0"/>
             </span>
             <br/>
             {{mainCon.modalName}}
@@ -26,15 +26,16 @@
 </template>
 
 <script>
-import { Flexbox, FlexboxItem,Icon,Spinner   } from 'vux'
+import { Flexbox, FlexboxItem,Icon,Spinner,,XImg   } from 'vux'
 import { getAction } from '@/api/manage';
-import { IMAGE_URL } from "@/store/mutation-types"
+import { IMAGE_URL,IMAGE_THU_URL } from "@/store/mutation-types"
 export default {
   components: {
     Flexbox,
     FlexboxItem,
     Icon,
-    Spinner
+    Spinner,
+    XImg
   },
   name: "index",
   data() {
@@ -42,6 +43,7 @@ export default {
       model_an:false,
       transitionName:'vux-header-fade-in-left',
       imageUrl:IMAGE_URL,
+      imageThuUrl:IMAGE_THU_URL,
       backGroundUrl: '',
       leftImgUrl:'',
       mainConfigList:[
@@ -75,7 +77,7 @@ export default {
       getAction("phone/api_zknh_wechat_config/getWeChatMainLeftImg").then(res => {
         let code = res.code;
         if ("200" == code) {
-          this.leftImgUrl = IMAGE_URL+res.result;
+          this.leftImgUrl = res.result;
         } else {
           this.leftImgUrl = '';
         }
