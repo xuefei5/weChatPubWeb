@@ -15,6 +15,7 @@ import hypermarket from '@/components/hypermarket/index'
 import weChatIndex from '@/components/wechat/main/index'
 import mainRoute from "../components/layout/mainRoute";
 import villageList from "../components/wechat/village/villageList";
+import villagesList from "../components/wechat/village/villagesList";
 import villageDetail from "../components/wechat/village/villageDetail";
 
 Vue.use(VueRouter)
@@ -101,16 +102,22 @@ const router = new VueRouter({
         component: mainRoute,
         children:[
           {
+            path: 'villagesList',
+            name: 'villagesList',
+            component: villagesList,
+            meta:{index:3, keepAlive:true}
+          },
+          {
             path: 'villageList',
             name: 'villageList',
             component: villageList,
-            meta:{index:3, keepAlive:true}
+            meta:{index:4, keepAlive:false}
           },
           {
             path: 'villageDetail',
             name: 'villageDetail',
             component: villageDetail,
-            meta:{index:4, keepAlive:false}
+            meta:{index:5, keepAlive:false}
           },
           {
             path: 'weChatMain',

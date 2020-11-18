@@ -1,22 +1,22 @@
 <template>
   <div style="background: #000000;margin-top: -1rem;">
     <br/>
-    <div style="margin: 15px;overflow: hidden;" v-for="item in villageList">
+    <div style="margin: 15px;overflow: hidden;" v-for="item in villagesList">
       <masker class="masker" style="border-radius: 10px;" :opacity="0.6">
         <!--:style="{backgroundImage: 'url(' + imageUrl+item.villageBack + ')'}"-->
           <x-img class="m-img" :default-src="imageThuUrl+item.villageBack" :src="imageUrl+item.villageBack" :offset="0"/>
         <div slot="content" class="m-title">
           <h2>{{item.villageName}}</h2>
           <p style="margin-top: 20px">{{item.villageContent}}</p>
-          <x-button mini plain class="m-button" v-on:click.native="openVillageDetail(item)"><span style="color: white">查看详情</span></x-button>
+          <x-button mini plain class="m-button" v-on:click.native="openVillageDetail(item.id)"><span style="color: white">查看村庄</span></x-button>
         </div>
       </masker>
     </div>
     <divider>已经到底啦</divider>
-    <span v-if="this.villageList.length == 1">
+    <span v-if="this.villagesList.length == 1">
       <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </span>
-    <span v-if="this.villageList.length == 2">
+    <span v-if="this.villagesList.length == 2">
       <br/><br/><br/><br/>
     </span>
   </div>
@@ -38,8 +38,7 @@ export default {
     return {
       imageUrl:IMAGE_URL,
       imageThuUrl:IMAGE_THU_URL,
-      villageList: [],
-      id:this.$route.query.id
+      villagesList: []
     }
   },
   mounted(){
@@ -51,28 +50,24 @@ export default {
   methods:{
     getVillageList(){
       let params = {};
-      params['villageId'] = this.id;
+      params['villageId'] = '';
       getAction("phone/api_zknh_wechat_config/queryVillageList",params).then(res => {
         let code = res.code;
         this.$vux.loading.hide();
         if ("200" == code) {
-          this.villageList = res.result;
-          if(this.villageList.length == 0){
-            this.$vux.toast.text('没有配置村列表','top');
-            window.history.go(-1);
-          }
+          this.villagesList = res.result;
         } else {
           this.$vux.toast.show({
-            text: '村集体加载失败',
+            text: '镇列表加载失败',
             type:'warn'
           })
-          this.villageList = [];
+          this.villagesList = [];
         }
       })
     },
-    openVillageDetail(item){
-      console.log("点击详情"+item);
-      this.$router.push({path: '/mainRoute/villageDetail', query: item});
+    openVillageDetail(id){
+      console.log("点击列表"+id);
+      this.$router.push({path: '/mainRoute/villageList', query: {"id":id}});
     }
   }
 
