@@ -1,36 +1,31 @@
 <template>
-  <div style="background: #000000;margin-top: -1rem;">
-    <br/>
-    <div style="margin: 15px;overflow: hidden;" v-for="item in villagesList">
-      <masker class="masker" style="border-radius: 10px;" :opacity="0.6">
-        <!--:style="{backgroundImage: 'url(' + imageUrl+item.villageBack + ')'}"-->
-          <x-img class="m-img" :default-src="imageThuUrl+item.villageBack" :src="imageUrl+item.villageBack" :offset="0"/>
-        <div slot="content" class="m-title">
-          <h2>{{item.villageName}}</h2>
-          <p style="margin-top: 20px">{{item.villageContent}}</p>
-          <x-button mini plain class="m-button" v-on:click.native="openVillageDetail(item.id)"><span style="color: white">查看村庄</span></x-button>
-        </div>
-      </masker>
-    </div>
-    <divider>已经到底啦</divider>
-    <span v-if="this.villagesList.length == 1">
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    </span>
-    <span v-if="this.villagesList.length == 2">
-      <br/><br/><br/><br/>
-    </span>
+  <div v-transfer-dom>
+    <x-dialog v-model="isShow" hide-on-blur :dialog-style="{'max-width': '80%', width: '80%', height: '50px', 'background-color': 'transparent'}">
+      <flexbox :gutter="0" wrap="wrap" style="background-color:rgba(130,130,130,0.7) ;border-radius: 20px;height:50%">
+        <flexbox-item :span="1/3" v-for="item in villagesList" :key="item.index">
+          <div class="flex-demo" @click="openVillageDetail(item.id)">
+            <x-img class="model_icon" :default-src="imageThuUrl+item.villageBack" :src="imageUrl+item.villageBack" :offset="0"/>
+            <br/>
+            {{item.villageName}}
+          </div>
+        </flexbox-item>
+      </flexbox>
+    </x-dialog>
   </div>
 </template>
 
 <script>
-import { Masker,XButton,Divider,XImg  } from 'vux'
+import { TransferDomDirective as TransferDom,XDialog,Flexbox, FlexboxItem,XImg  } from 'vux'
 import { getAction } from '@/api/manage';
 import { IMAGE_URL,IMAGE_THU_URL } from "@/store/mutation-types"
 export default {
+  directives: {
+    TransferDom
+  },
   components: {
-    Masker,
-    XButton,
-    Divider,
+    XDialog,
+    Flexbox,
+    FlexboxItem,
     XImg
   },
   name: "villageList",
@@ -38,7 +33,8 @@ export default {
     return {
       imageUrl:IMAGE_URL,
       imageThuUrl:IMAGE_THU_URL,
-      villagesList: []
+      villagesList: [],
+      isShow:false
     }
   },
   mounted(){
@@ -48,7 +44,11 @@ export default {
     this.getVillageList();
   },
   methods:{
+    show(){
+      this.isShow = true;
+    },
     getVillageList(){
+      const con_this = this;
       let params = {};
       params['villageId'] = '';
       getAction("phone/api_zknh_wechat_config/queryVillageList",params).then(res => {
@@ -67,6 +67,7 @@ export default {
     },
     openVillageDetail(id){
       console.log("点击列表"+id);
+      this.isShow = false;
       this.$router.push({path: '/mainRoute/villageList', query: {"id":id}});
     }
   }
@@ -83,6 +84,22 @@ export default {
 </script>
 
 <style scoped>
+  .model_icon{
+    width: 54px;
+    height: 54px;
+    border-radius: 10px
+  }
+
+  .flex-demo {
+    text-align: center;
+    color: #fff;
+    border-radius: 4px;
+    background-clip: padding-box;
+    margin-top: 1rem;
+    animation: fade-in;/*动画名称*/
+    animation-duration: 3s;/*动画持续时间*/
+    -webkit-animation:fade-in 1.5s;/*针对webkit内核*/
+  }
   .m-img {
     display: block;
     position: relative;

@@ -22,6 +22,9 @@
         </flexbox-item>
       </flexbox>
     </div>
+
+    <!--引入镇选择组件-->
+    <villages-list ref="villagesList"></villages-list>
   </div>
 </template>
 
@@ -29,8 +32,10 @@
 import { Flexbox, FlexboxItem,Icon,Spinner,,XImg   } from 'vux'
 import { getAction } from '@/api/manage';
 import { IMAGE_URL,IMAGE_THU_URL } from "@/store/mutation-types"
+import VillagesList from "../village/villagesList";
 export default {
   components: {
+    VillagesList,
     Flexbox,
     FlexboxItem,
     Icon,
@@ -103,12 +108,13 @@ export default {
       //如果没有配置url,说明该模块没有实现
       if(!mainCon.modalUrl){
         this.$vux.toast.text('么着急，敬请期待^_^','top');
+        return;
       }
 
       let modalType = mainCon.modalType;//1-内部链接，2-外部链接
       switch (modalType) {
         case 1:
-          this.$router.push(mainCon.modalUrl);
+          this.openRoute(mainCon.modalUrl);
           break;
         case 2:
           window.open(mainCon.modalUrl,"_self");
@@ -120,6 +126,11 @@ export default {
           })
           break;
       }
+    },
+    openRoute(url){
+      //先写死，后面需要判断
+      this.$refs.villagesList.show();
+      //this.$router.push(url);
     }
   }
 }
