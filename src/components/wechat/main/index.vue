@@ -1,7 +1,7 @@
 <template>
   <div class="weChat-main" v-bind:style="{background:'url('+backGroundUrl+')'}">
     <div class="drag">
-      <x-img class="main_lefttop" :default-src="imageThuUrl+leftImgUrl" :src="imageUrl+leftImgUrl" :offset="0"/>
+      <!--<x-img class="main_lefttop" :default-src="imageThuUrl+leftImgUrl" :src="imageUrl+leftImgUrl" :offset="0"/>-->
       <br/>
       <div class="title">
         准康云线上平台<img src="../../../assets/images/zknh/zknh_logo.png" class="logo"/>
