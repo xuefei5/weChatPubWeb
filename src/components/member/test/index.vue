@@ -25,7 +25,6 @@
         </div>
       </div>
     </card>
-    <div>这是服务端返回的数据：{{this.serverData}}</div>
   </div>
 </template>
 
@@ -40,15 +39,14 @@
       },
       data(){
         return{
-          serverData:[]
         }
       },
       //初始化执行的方法
       mounted() {
-        let param = {"offerType":"1"};
+        /*let param = {"offerType":"1"};
         getAction("phone/offer/list", param).then(res => {
           this.serverData = res.result
-        })
+        })*/
       }
     }
 </script>
