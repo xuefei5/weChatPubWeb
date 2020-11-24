@@ -1,14 +1,22 @@
 <template>
-  <div class="weChat-main" v-bind:style="{background:'url('+backGroundUrl+')'}">
+  <div class="sky">
+      <div class="clouds_one"></div>
+      <div class="clouds_two"></div>
+      <div class="clouds_three"></div>
     <div class="drag">
-      <!--<x-img class="main_lefttop" :default-src="imageThuUrl+leftImgUrl" :src="imageUrl+leftImgUrl" :offset="0"/>-->
-      <br/><br/><br/>
-      <div class="title">
-        准康云线上平台<img src="../../../assets/images/zknh/zknh_logo.png" class="logo"/>
+      <div style="background-color: rgba(255,255,255,0.5)">
+        <x-img class="main_top" :default-src="imageThuUrl+backGroundUrl" :src="imageUrl+backGroundUrl" :offset="0"/>
+        <br/><br/><br/>
+        <div class="title">
+          <img src="../../../assets/images/zknh/zknh_logo.png" class="logo"/>
+          <br/>
+          <span style="font-size: .9rem;color:black">准康农汇助农平台</span>
+        </div>
+        <br/>
       </div>
-      <br/><br/>
-      <flexbox :gutter="0" wrap="wrap">
-        <flexbox-item :span="1/3" v-for="mainCon in mainConfigList" :key="mainCon.index">
+      <div style="height: .5rem;"></div>
+      <flexbox :gutter="0" wrap="wrap" style="background-color: rgba(255,255,255,0.5);">
+        <flexbox-item :span="1/5" v-for="mainCon in mainConfigList" :key="mainCon.index">
           <div class="flex-demo" @click="openRouteOrOther(mainCon)">
             <span v-if="mainCon.iconType == '2'">
               <icon :type="mainCon.modalIcon" is-msg></icon>
@@ -17,10 +25,15 @@
               <x-img class="model_icon" :default-src="imageThuUrl+mainCon.modalIcon" :src="imageUrl+mainCon.modalIcon" :offset="0"/>
             </span>
             <br/>
-            {{mainCon.modalName}}
+            <span style="font-size: .8rem;color:black">{{mainCon.modalName}}</span>
+
           </div>
         </flexbox-item>
       </flexbox>
+      <div style="height: .5rem;"></div>
+      <div style="background-color: rgba(255,255,255,0.5);">
+        <panel style="background-color: transparent" :header="zkIssueHeader" :list="zkIssueList" type="5" :footer="footer"></panel>
+      </div>
     </div>
 
     <!--引入镇选择组件-->
@@ -29,7 +42,7 @@
 </template>
 
 <script>
-import { Flexbox, FlexboxItem,Icon,Spinner,,XImg   } from 'vux'
+import { Flexbox, FlexboxItem,Icon,Spinner,XImg,Panel   } from 'vux'
 import { getAction } from '@/api/manage';
 import { IMAGE_URL,IMAGE_THU_URL } from "@/store/mutation-types"
 import VillagesList from "../village/villagesList";
@@ -40,7 +53,8 @@ export default {
     FlexboxItem,
     Icon,
     Spinner,
-    XImg
+    XImg,
+    Panel
   },
   name: "index",
   data() {
@@ -52,7 +66,23 @@ export default {
       backGroundUrl: '',
       leftImgUrl:'',
       mainConfigList:[
-      ]
+      ],
+      zkIssueHeader:'<span style="color: white">准康发布</span>',
+      zkIssueList:[
+        {
+          src: 'http://39.104.93.182/images/caomei.jpg',
+          desc: '<span style="color: white;font-size: .9rem;">好久“莓”见:冬天里的“第一盒草莓”新鲜上市啦!!!</span>',
+          url: '',
+          meta: {
+            source: '2020-11-24',
+            other: '准康农汇'
+          }
+        }
+      ],
+      footer: {
+        title: '更多',
+        url: ''
+      }
     }
   },
   mounted() {
@@ -60,7 +90,6 @@ export default {
       text: '努力加载中...'
     });
     this.getMainBackGround();
-    this.getMainLeftTop();
     this.getMainModel();
   },
   methods: {
@@ -68,23 +97,13 @@ export default {
       getAction("phone/api_zknh_wechat_config/getWeChatMainBack").then(res => {
         let code = res.code;
         if ("200" == code) {
-          this.backGroundUrl = IMAGE_URL+res.result;
+          this.backGroundUrl = res.result;
         } else {
           this.$vux.toast.show({
             text: '背景图加载失败',
             type:'warn'
           })
           this.backGroundUrl = '';
-        }
-      })
-    },
-    getMainLeftTop() {
-      getAction("phone/api_zknh_wechat_config/getWeChatMainLeftImg").then(res => {
-        let code = res.code;
-        if ("200" == code) {
-          this.leftImgUrl = res.result;
-        } else {
-          this.leftImgUrl = '';
         }
       })
     },
@@ -153,7 +172,7 @@ export default {
     position: absolute;
     left:0;
     top:0;
-    background: inherit;
+    background: #ececec;
     filter: blur(2px);
     z-index: 2;
   }
@@ -163,6 +182,7 @@ export default {
     border-radius: 4px;
     background-clip: padding-box;
     margin-top: 1rem;
+    margin-bottom: 1rem;
     animation: fade-in;/*动画名称*/
     animation-duration: 3s;/*动画持续时间*/
     -webkit-animation:fade-in 1.5s;/*针对webkit内核*/
@@ -171,11 +191,9 @@ export default {
     background-color: #999999;
   }
   .title{
-    font-size: 2rem;
-    color: white;
+    color:black;
     text-align: center;
-    font-family:Cursive;
-    font-weight:bold;
+    margin-top: -5rem;
     animation: fade-in;/*动画名称*/
     animation-duration: 3s;/*动画持续时间*/
     -webkit-animation:fade-in 1.5s;/*针对webkit内核*/
@@ -187,23 +205,20 @@ export default {
   }
 
   .model_icon{
-     width: 54px;
-     height: 54px;
+     width: 45px;
+     height: 45px;
      border-radius: 10px
    }
 
   .logo{
-    width: 20px;
-    height: 20px;
-    margin-bottom: .5rem;
+    width: 3rem;
+    height: 3rem;
   }
 
-  .main_lefttop{
-    width: 54px;
-    height: 54px;
-    border-radius: 10px;
-    margin-top: .5rem;
-    margin-left: .5rem;
+  .main_top{
+    width: 100%;
+    height: 7rem;
+    border-radius: 0 0 45% 45%;
   }
 
   @keyframes fade-in {
