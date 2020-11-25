@@ -93,7 +93,7 @@ export default {
   .detail-div{
     text-align: center;
     border-radius: 10px;
-    background-image: url("../../../assets/images/zknh/villageDetail_brod.png");
+    background-image: url("http://39.104.93.182/images/main_backgroud/villageDetail_brod.png");
     margin: 10px 10px 10px 10px;
     background-repeat: no-repeat !important;
     padding-top: 10px;
