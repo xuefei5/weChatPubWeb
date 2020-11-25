@@ -1,62 +1,57 @@
 <template>
-  <div style="background: #000000;margin-top: -1rem;">
-    <br/>
-    <div style="margin: 15px;overflow: hidden;" v-for="item in villageList">
-      <masker class="masker" style="border-radius: 10px;" :opacity="0.6">
-        <!--:style="{backgroundImage: 'url(' + imageUrl+item.villageBack + ')'}"-->
-          <x-img class="m-img" :default-src="imageThuUrl+item.villageBack" :src="imageUrl+item.villageBack" :offset="0"/>
-        <div slot="content" class="m-title">
-          <h2>{{item.villageName}}</h2>
-          <p style="margin-top: 20px">{{item.villageContent}}</p>
-          <x-button mini plain class="m-button" v-on:click.native="openVillageDetail(item)"><span style="color: white">查看详情</span></x-button>
-        </div>
-      </masker>
-    </div>
+  <div>
+  <div class="title">
+    <img src="../../../assets/images/zknh/cun_logo.png" class="logo"/>村集体列表
+  </div>
+  <div class="panel" >
+    <panel :list="list" :type="type" @on-img-error="onImgError"></panel>
+  </div>
     <divider>已经到底啦</divider>
-    <span v-if="this.villageList.length == 1">
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    </span>
-    <span v-if="this.villageList.length == 2">
-      <br/><br/><br/><br/>
-    </span>
   </div>
 </template>
 
 <script>
-import { Masker,XButton,Divider,XImg  } from 'vux'
+import { Panel, Group, Divider } from 'vux'
 import { getAction } from '@/api/manage';
 import { IMAGE_URL,IMAGE_THU_URL } from "@/store/mutation-types"
 export default {
   components: {
-    Masker,
-    XButton,
     Divider,
-    XImg
+    Panel,
+    Group
+
   },
   name: "villageList",
-  data () {
-    return {
-      imageUrl:IMAGE_URL,
-      imageThuUrl:IMAGE_THU_URL,
-      villageList: [],
-      id:this.$route.query.id
-    }
-  },
   mounted(){
     this.$vux.loading.show({
       text: '努力加载中...'
     });
     this.getVillageList();
   },
-  methods:{
+  methods: {
+    onImgError (item, $event) {
+      console.log(item, $event)
+    },
     getVillageList(){
       let params = {};
+      let con_this = this;
       params['villageId'] = this.id;
       getAction("phone/api_zknh_wechat_config/queryVillageList",params).then(res => {
         let code = res.code;
         this.$vux.loading.hide();
         if ("200" == code) {
           this.villageList = res.result;
+          let list = res.result;
+          list.forEach(function (item,index){
+            let myItem = {};
+            myItem.src = IMAGE_URL +item.villageBack;
+            myItem.title = item.villageName;
+            myItem.desc = item.villageContent;
+            myItem.url = '/mainRoute/villageDetail?id='+item.id +'&villageName='+item.villageName+'&villageMainImg='+item.villageMainImg;
+            con_this.list.push(myItem);
+            }
+
+          )
           if(this.villageList.length == 0){
             this.$vux.toast.text('没有配置村列表','top');
             window.history.go(-1);
@@ -69,72 +64,43 @@ export default {
           this.villageList = [];
         }
       })
-    },
-    openVillageDetail(item){
-      console.log("点击详情"+item);
-      this.$router.push({path: '/mainRoute/villageDetail', query: item});
+    }
+
+  },
+  data () {
+    return {
+      imageUrl:IMAGE_URL,
+      imageThuUrl:IMAGE_THU_URL,
+      villageList: [],
+      id:this.$route.query.id,
+      type: '1',
+      list: [],
+      /*footer: {
+        url: 'http://vux.li'
+      }*/
     }
   }
-
-
-  /*beforeCreate () {
-    document.querySelector('body').setAttribute('style', 'background-color:#333333')
-  },
-
-  beforeDestroy () {
-    document.querySelector('body').removeAttribute('style')
-  }*/
 }
 </script>
-
 <style scoped>
-  .m-img {
-    display: block;
-    position: relative;
-    max-width: 100%;
-    width: 100%;
-    height: 15rem;
-    background-position: center center;
-    cursor: pointer;
-    border-radius: 10px;
-  }
-
-  .m-title {
-    color: #fff;
-    text-align: center;
-    font-weight: 500;
-    font-size: 16px;
-    position: absolute;
-    height: 5rem;
-    top: 20%;
-    transform: translateY(-50%);
-    padding: 5px 50px 5px 50px;
-  }
-
-  .m-button {
-    margin-top: 1.5rem;
-    font-size: 0.65rem;
-    font-weight: bold;
-    letter-spacing: 0.025rem;
-    color: white;
-  }
-  .m-button.hover {
-    background-color: red;
-  }
-
-  @keyframes translateY{
-    0%{transform: translateY(50px);opacity: 0;}
-    100%{ transform: translateY(0px);opacity: 1;}
-  }
-
-  @-webkit-keyframes translateY {/*针对webkit内核*/
-    0%{transform: translateY(50px);opacity: 0;}
-    100%{ transform: translateY(0px);opacity: 1;}
-  }
-
-  .masker{
-    animation: translateY;/*动画名称*/
-    animation-duration: 3s;/*动画持续时间*/
-    -webkit-animation:translateY 1.5s;/*针对webkit内核*/
-  }
+.title{
+  font-size: 2rem;
+  color: #211d1d;
+  text-align: center;
+  font-family:Cursive;
+  font-weight:bold;
+  animation: fade-in;/*动画名称*/
+  animation-duration: 2s;/*动画持续时间*/
+  -webkit-animation:fade-in 1.5s;/*针对webkit内核*/
+}
+.panel{
+  animation: fade-in;/*动画名称*/
+  animation-duration: 2s;/*动画持续时间*/
+  -webkit-animation:fade-in 1.5s;/*针对webkit内核*/
+}
+.logo{
+  width: 50px;
+  height: 50px;
+  text-align: center;
+}
 </style>
