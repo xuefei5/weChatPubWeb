@@ -9,6 +9,7 @@ import router from './router/route.config.js'      //---------自定义的路由
 import Base from './assets/js/baseFun.js'         //---------自定义的公共函数和公共请求方法
 import stores from './store/store'                //---------自定义的全局变量
 import './assets/css/base.css'                    //---------引入的全局公共css
+import './assets/css/my_ani.css'
 
 import  { ToastPlugin,LoadingPlugin } from 'vux'
 Vue.use(ToastPlugin)
