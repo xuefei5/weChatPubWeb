@@ -79,10 +79,10 @@ export default {
 
   .main-div{
     text-align: center;
-    background-color: #999999;
+    background-color: white;
   }
   .village-main-img{
-    border-radius: 20px;
+    border-radius: 10px;
     height: 14rem;
     width: 22rem;
     margin: 10px 10px 10px 10px;
@@ -92,9 +92,13 @@ export default {
   }
   .detail-div{
     text-align: center;
-    border-radius: 20px;
-    background-color: white;
+    border-radius: 10px;
+    background-image: url("../../../assets/images/zknh/villageDetail_brod.png");
     margin: 10px 10px 10px 10px;
+    background-repeat: no-repeat !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-size: 100% 100% !important;
     animation: translateY;/*动画名称*/
     animation-duration: 3s;/*动画持续时间*/
     -webkit-animation:translateY 1.5s;/*针对webkit内核*/
@@ -115,7 +119,7 @@ export default {
     margin: 10px 10px 10px 10px;
   }
   .detail_img{
-    border-radius: 20px;
+    border-radius: 10px;
     height: 13rem;
     width: 21rem;
     margin: 10px 10px 10px 10px;

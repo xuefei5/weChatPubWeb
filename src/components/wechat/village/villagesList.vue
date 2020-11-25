@@ -1,7 +1,7 @@
 <template>
   <div v-transfer-dom>
-    <x-dialog v-model="isShow" hide-on-blur :dialog-style="{'max-width': '80%', width: '80%', height: '50px', 'background-color': 'transparent'}">
-      <flexbox :gutter="0" wrap="wrap" style="background-color:rgba(255,255,255,0.9) ;border-radius: 20px;height:50%">
+    <x-dialog v-model="isShow" hide-on-blur :dialog-style="{'max-width': '80%', width: '80%', 'background-color': 'transparent'}">
+      <flexbox :gutter="0" wrap="wrap" style="background-color:rgba(255,255,255,0.9) ;border-radius: 20px;">
         <flexbox-item :span="1/3" v-for="item in villagesList" :key="item.index">
           <div class="flex-demo" @click="openVillageDetail(item.id)">
             <x-img class="model_icon" :default-src="imageThuUrl+item.villageBack" :src="imageUrl+item.villageBack" :offset="0"/>

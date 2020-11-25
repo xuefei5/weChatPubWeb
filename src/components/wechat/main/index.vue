@@ -1,4 +1,5 @@
 <template>
+  <div style="height: 100%;">
   <div class="sky">
       <div class="clouds_one"></div>
       <div class="clouds_two"></div>
@@ -35,7 +36,7 @@
         <panel style="background-color: transparent" :header="zkIssueHeader" :list="zkIssueList" type="5" :footer="footer"></panel>
       </div>
     </div>
-
+  </div>
     <!--引入镇选择组件-->
     <villages-list ref="villagesList"></villages-list>
   </div>
