@@ -7,6 +7,7 @@
       <flexbox orient="vertical">
         <flexbox-item v-for="item in detailList" :key="item.index">
           <load-more :show-loading="false"></load-more>
+          <div class="detail-div-top"></div>
           <div class="detail-div">
             <h2 style="text-align: center">{{item.modelName}}</h2>
             <br/>
@@ -14,6 +15,7 @@
             <br/>
             <div class="detail-text">&nbsp;&nbsp;&nbsp;&nbsp; {{item.modelContent}}</div>
           </div>
+          <div class="detail-div-bottom"></div>
         </flexbox-item>
       </flexbox>
       <divider>已经到底啦</divider>
@@ -93,11 +95,35 @@ export default {
   .detail-div{
     text-align: center;
     border-radius: 10px;
-    background-image: url("http://39.104.93.182/images/main_backgroud/villageDetail_brod.png");
+    background-image: url("http://39.104.93.182/images/main_backgroud/villageDetail_brod_center.png");
     margin: 10px 10px 10px 10px;
     background-repeat: no-repeat !important;
     padding-top: 10px;
     padding-bottom: 10px;
+    background-size: 100% 100% !important;
+    animation: translateY;/*动画名称*/
+    animation-duration: 3s;/*动画持续时间*/
+    -webkit-animation:translateY 1.5s;/*针对webkit内核*/
+  }
+
+  .detail-div-top{
+    text-align: center;
+    background-image: url("http://39.104.93.182/images/main_backgroud/villageDetail_brod_top.png");
+    margin: 10px 10px -1rem 10px;
+    background-repeat: no-repeat !important;
+    padding-top: 10px;
+    background-size: 100% 100% !important;
+    animation: translateY;/*动画名称*/
+    animation-duration: 3s;/*动画持续时间*/
+    -webkit-animation:translateY 1.5s;/*针对webkit内核*/
+  }
+
+  .detail-div-bottom{
+    text-align: center;
+    background-image: url("http://39.104.93.182/images/main_backgroud/villageDetail_brod_bottom.png");
+    margin: -1rem 10px 10px 10px;
+    background-repeat: no-repeat !important;
+    padding-top: 10px;
     background-size: 100% 100% !important;
     animation: translateY;/*动画名称*/
     animation-duration: 3s;/*动画持续时间*/
