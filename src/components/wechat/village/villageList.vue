@@ -1,24 +1,26 @@
 <template>
   <div>
-  <div class="title">
-    <img src="../../../assets/images/zknh/cun_logo.png" class="logo"/>村集体列表
-  </div>
-  <div class="panel" >
-    <panel :list="list" :type="type" @on-img-error="onImgError"></panel>
-  </div>
+    <x-header style="background-color:#000000;" :left-options="{backText: '主页'}">村集体列表</x-header>
+    <div class="title">
+      <img src="../../../assets/images/zknh/cun_logo.png" class="logo"/>村集体列表
+    </div>
+    <div class="panel">
+      <panel :list="list" :type="type" @on-img-error="onImgError"></panel>
+    </div>
     <divider>已经到底啦</divider>
   </div>
 </template>
 
 <script>
-import { Panel, Group, Divider } from 'vux'
+import { Panel, Group, Divider,XHeader  } from 'vux'
 import { getAction } from '@/api/manage';
 import { IMAGE_URL,IMAGE_THU_URL } from "@/store/mutation-types"
 export default {
   components: {
     Divider,
     Panel,
-    Group
+    Group,
+    XHeader
 
   },
   name: "villageList",

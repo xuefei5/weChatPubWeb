@@ -1,5 +1,6 @@
 <template>
     <div class="main-div">
+      <x-header style="background-color:#000000;" :left-options="{backText: '主页'}">村集体列表</x-header>
       <x-img :default-src="imageThuUrl+villageInfo.villageMainImg" :src="imageUrl+villageInfo.villageMainImg" :offset="-10" class="village-main-img"/>
       <br/>
       <div class="title_me">{{villageInfo.villageName}}</div>
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-import { Divider,Flexbox, FlexboxItem,LoadMore,XImg  } from 'vux'
+import { Divider,Flexbox, FlexboxItem,LoadMore,XImg,XHeader  } from 'vux'
 import { getAction } from '@/api/manage';
 import { IMAGE_URL,IMAGE_THU_URL } from "@/store/mutation-types"
 export default {
@@ -33,7 +34,8 @@ export default {
     Flexbox,
     FlexboxItem,
     LoadMore,
-    XImg
+    XImg,
+    XHeader
   },
   name: "villageDetail",
   data() {
